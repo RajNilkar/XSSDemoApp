@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM XSS HTML</title>
+</head>
+<body>
+    <h1>DOM-Based XSS</h1>
+
+    <nav>
+        <ul><a href="reflectedXSS.html">Reflected XSS</a></ul>
+        <ul><a href="storedXSS.html">Stored XSS</a></ul>
+        <ul><a href="domXSS.html">DOM XSS</a></ul>
+    </nav>
+
+    <p>URL Parameter Output:</p>
+    <div id="domOutput"></div>
+
+    <script>
+        //Extract hash from URL like dom.html#message=<payload>
+        const hash = window.location.hash.substring(1); //remove the '#' in the url
+        console.log("Extracted hash: ", hash);
+
+        const params = new URLSearchParams(hash);
+        const message = params.get("message");
+        console.log("Extracted message: ", message);
+
+        //Vulnerable to direct innerHTML injection
+        if(message) {
+            document.getElementById("domOutput").innerHTML = message;
+        }
+        console.log("Extracted message: ", message);
+
+        console.log("DOM XSS script is running");
+    </script>
+
+    <p>Try adding this to the url</p>
+    <code>#message=&lt;script&gt;alert('XSS')&lt;/script&gt;</code>
+</body>
+</html>

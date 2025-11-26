@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stored XSS Demo</title>
+</head>
+<body>
+    <h1>Stored XSS Demo</h1>
+
+    <nav>
+        <ul><a href="reflectedXSS.html">Reflected XSS</a></ul>
+        <ul><a href="storedXSS.html">Stored XSS</a></ul>
+        <ul><a href="domXSS.html">DOM XSS</a></ul>
+    </nav>
+
+
+    <form onsubmit="saveComment(event)">
+        <label for="comment">Leave a comment:</label>
+        <input type="text" id="commentInput" placeholder="Add a comment...">
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Comments:</h2>
+    <div id="comments"></div>
+
+    <script>
+        function loadComments() {
+            const comments = JSON.parse(localStorage.getItem("comments")) || [];
+            const container = document.getElementById("comments");
+            
+            comments.forEach(c=> {
+                // Vulnerable to XSS: injecting unsanitized HTML directly
+                const commentDiv = document.createElement("div");
+                commentDiv.innerHTML = c;
+                container.appendChild(commentDiv);
+            });
+        }
+
+        function saveComment(event) {
+            event.preventDefault();
+
+            const userInput = document.getElementById("commentInput").value;
+            const comments = JSON.parse(localStorage.getItem("comments")) || [];
+
+            comments.push(userInput);
+            localStorage.setItem("comments", JSON.stringify(comments));
+        
+            location.reload();
+        }
+
+        loadComments();
+    </script>
+</body>
+</html>
