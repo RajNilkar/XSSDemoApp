@@ -1,0 +1,67 @@
+h1 {
+    font-size: 2.5rem;
+    color: #333333;
+    margin-bottom: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+nav {
+    background-color: #f8f8f8;
+    padding: 1rem;
+    border-bottom: 2px solid #e7e7e7;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 2rem;
+}
+
+nav a {
+    color: purple;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: 600;
+    font-family: 'Times New Roman', Times, serif;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+#inputbox-container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+#inputbox-container #input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#inputbox-container #commentInput
+{
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#inputbox-container #submitBtn {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: purple;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+

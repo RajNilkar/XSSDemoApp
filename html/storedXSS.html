@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stored XSS Demo</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
     <h1>Stored XSS Demo</h1>
@@ -15,11 +16,13 @@
     </nav>
 
 
-    <form onsubmit="saveComment(event)">
-        <label for="comment">Leave a comment:</label>
-        <input type="text" id="commentInput" placeholder="Add a comment...">
-        <button type="submit">Save</button>
-    </form>
+    <div id="inputbox-container">
+        <form onsubmit="saveComment(event)">
+            <label for="comment">Leave a comment:</label>
+            <input type="text" id="commentInput" placeholder="Add a comment...">
+            <button type="submit" id="submitBtn">Save</button>
+        </form>
+    </div>
 
     <h2>Comments:</h2>
     <div id="comments"></div>
