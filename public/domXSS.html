@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOM XSS HTML</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <h1>DOM-Based XSS</h1>
@@ -15,10 +15,13 @@
         <ul><a href="domXSS.html">DOM XSS</a></ul>
     </nav>
 
-    <p>URL Parameter Output:</p>
+    <p>URL Parameter Output from hash (#):</p>
     <div id="domOutput"></div>
+    <code>#message=&lt;img src=x onerror=&quot;alert('DOM XSS!')&quot;&gt;</code>
 
     <script>
+        console.log("DOM XSS script is running");
+
         //Extract hash from URL like dom.html#message=<payload>
         const hash = window.location.hash.substring(1); //remove the '#' in the url
         console.log("Extracted hash: ", hash);
@@ -31,12 +34,6 @@
         if(message) {
             document.getElementById("domOutput").innerHTML = message;
         }
-        console.log("Extracted message: ", message);
-
-        console.log("DOM XSS script is running");
     </script>
-
-    <p>Try adding this to the url</p>
-    <code>#message=&lt;script&gt;alert('XSS')&lt;/script&gt;</code>
 </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stored XSS Demo</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <h1>Stored XSS Demo</h1>
@@ -31,11 +31,13 @@
         function loadComments() {
             const comments = JSON.parse(localStorage.getItem("comments")) || [];
             const container = document.getElementById("comments");
+
+            container.innerHTML = ""; //Reset the pop-up on page reload
             
-            comments.forEach(c=> {
+            comments.forEach(comment=> {
                 // Vulnerable to XSS: injecting unsanitized HTML directly
                 const commentDiv = document.createElement("div");
-                commentDiv.innerHTML = c;
+                commentDiv.innerHTML = comment;
                 container.appendChild(commentDiv);
             });
         }
@@ -43,15 +45,21 @@
         function saveComment(event) {
             event.preventDefault();
 
-            const userInput = document.getElementById("commentInput").value;
-            const comments = JSON.parse(localStorage.getItem("comments")) || [];
+            const userInput = document.getElementById("commentInput");
+            const value = userInput.value.trim();
+            
+            if(!value) return;
 
+            const comments = JSON.parse(localStorage.getItem("comments")) || [];
             comments.push(userInput);
+
             localStorage.setItem("comments", JSON.stringify(comments));
         
-            location.reload();
+            userInput.value = ""; //Clear the input field
+            loadComments(); //Reload without page refresh
         }
 
+        //Load XSS payloads
         loadComments();
     </script>
 </body>
