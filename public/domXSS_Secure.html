@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DOM XSS HTML</title>
+    <title>DOM-Based XSS Secure</title>
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <h1>DOM-Based XSS Demo</h1>
+    <h1>DOM-Based XSS Secure Demo</h1>
 
     <nav>
       <ul>
@@ -17,24 +17,25 @@
         <a href="storedXSS.html">Stored XSS Vulnerable</a>
       </ul>
       <ul>
-        <a href="reflectedXSS_Secure.html">Reflected XSS Secure</a>
+        <a href="domXSS.html">DOM XSS Vulnerable</a>
+      </ul>
+      <ul>
+        <a href="reflectedXSS_Secure.html">Reflected XSS Securee</a>
       </ul>
       <ul>
         <a href="storedXSS_Secure.html">Stored XSS Secure</a>
       </ul>
-      <ul>
-        <a href="domXSS_Secure.html">DOM XSS Secure</a>
-      </ul>
     </nav>
 
-    <p>After entering the below code in the url, refresh the page to see output.</p>
+    <p>
+      After entering the below code in the url, refresh the page to see output.
+    </p>
 
-    <p>URL Parameter Output from hash (#):</p>
+    <p>Output from URL hash (#):</p>
     <div id="domOutput"></div>
     <code
       >#message=&lt;img src=x onerror=&quot;alert('DOM XSS!')&quot;&gt;</code
     >
-
     <p>
       Enter the above code:
       <code
@@ -44,19 +45,15 @@
     </p>
 
     <script>
-      console.log("DOM XSS script is running");
+      console.log("Secure DOM-based XSS script is running.");
 
-      //Extract hash from URL like dom.html#message=<payload>
-      const hash = window.location.hash.substring(1); //remove the '#' in the url
-      console.log("Extracted hash: ", hash);
-
+      const hash = window.location.hash.substring(1);
       const params = new URLSearchParams(hash);
       const message = params.get("message");
-      console.log("Extracted message: ", message);
 
-      //Vulnerable to direct innerHTML injection
       if (message) {
-        document.getElementById("domOutput").innerHTML = message;
+        //Using textContent rather than innerHTML
+        document.getElementById("domOutput").textContent = message;
       }
     </script>
   </body>

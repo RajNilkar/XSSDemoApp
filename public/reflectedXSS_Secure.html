@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reflected XSS Secure</title>
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+    <h1>Reflected XSS Secure Demo</h1>
+
+    <nav>
+      <ul>
+        <a href="reflectedXSS.html">Reflected XSS Vulnerable</a>
+      </ul>
+      <ul>
+        <a href="storedXSS.html">Stored XSS Vulnerable</a>
+      </ul>
+      <ul>
+        <a href="domXSS.html">DOM XSS Vulnerable</a>
+      </ul>
+      <ul>
+        <a href="storedXSS_Secure.html">Stored XSS Secure</a>
+      </ul>
+      <ul>
+        <a href="domXSS_Secure.html">DOM XSS Secure</a>
+      </ul>
+    </nav>
+
+    <form method="GET" action="reflectedXSS_Secure.html">
+        <label for="input">Enter your name:</label>
+        <input type="text" id="input" name="input" placeholder="Type something...">
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Output:</h2>
+    <p id="output"></p>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const userInput = params.get("input");
+
+        if(userInput)
+        {
+            //makes text secure due to textContent
+            document.getElementById("output").textContent = userInput;
+        }
+    </script>
+  </body>
+</html>

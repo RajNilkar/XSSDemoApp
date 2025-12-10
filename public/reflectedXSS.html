@@ -7,24 +7,35 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <h1>Reflected XSS</h1>
+    <h1>Reflected XSS Demo</h1>
 
     <nav>
       <ul>
-        <a href="reflectedXSS.html">Reflected XSS</a>
+        <a href="storedXSS.html">Stored XSS Vulnerable</a>
       </ul>
       <ul>
-        <a href="storedXSS.html">Stored XSS</a>
+        <a href="domXSS.html">DOM XSS Vulnerable</a>
       </ul>
       <ul>
-        <a href="domXSS.html">DOM XSS</a>
+        <a href="reflectedXSS_Secure.html">Reflected XSS Secure</a>
+      </ul>
+      <ul>
+        <a href="storedXSS_Secure.html">Stored XSS Secure</a>
+      </ul>
+      <ul>
+        <a href="domXSS_Secure.html">DOM XSS Secure</a>
       </ul>
     </nav>
 
     <div id="inputbox-container">
       <form method="GET" action="reflectedXSS.html">
         <label for="input">Enter your name:</label>
-        <input type="text" name="input" id="input" placeholder="Type something..." />
+        <input
+          type="text"
+          name="input"
+          id="input"
+          placeholder="Type something..."
+        />
         <button type="submit" id="submitBtn" value="Submit">Submit</button>
       </form>
     </div>

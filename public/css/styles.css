@@ -14,17 +14,20 @@ nav {
     text-align: center;
     display: flex;
     justify-content: center;
-    gap: 50px;
+    flex-wrap: wrap;
+    gap: 30px;
     margin-bottom: 2rem;
 }
 
 nav a {
+    display: inline-block;
     color: purple;
     text-decoration: none;
     margin: 0 1rem;
     font-weight: 600;
     font-family: 'Times New Roman', Times, serif;
     transition: color 0.3s ease;
+    text-align: center;
 }
 
 nav a:hover {

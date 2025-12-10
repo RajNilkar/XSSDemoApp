@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stored XSS Secure</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h1>Stored XSS Secure Demo</h1>
+
+    <nav>
+      <ul>
+        <a href="reflectedXSS.html">Reflected XSS Vulnerable</a>
+      </ul>
+      <ul>
+        <a href="storedXSS.html">Stored XSS Vulnerable</a>
+      </ul>
+      <ul>
+        <a href="domXSS.html">DOM XSS Vulnerable</a>
+      </ul>
+      <ul>
+        <a href="reflectedXSS_Secure.html">Reflected XSS Secure</a>
+      </ul>
+      <ul>
+        <a href="domXSS_Secure.html">DOM XSS Secure</a>
+      </ul>
+    </nav>
+
+    <div id="inputbox-container">
+        <form onsubmit="saveComment(event)">
+            <label for="commentInput">Leave a comment:</label>
+            <input type="text" id="commentInput" placeholder="Add a comment..." required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <h2>Comments:</h2>
+    <div id="comments"></div>
+
+    <script>
+        function loadComments()
+        {
+            const comments = JSON.parse(localStorage.getItem("comments_secure")) || [];
+            const container = document.getElementById("comments");
+            container.innerHTML = "";
+
+            comments.forEach(comment => {
+                const div = document.createElement("div");
+                //Using textContent again to make it secure, rather than innerHTML
+                div.textContent = comment;
+                container.appendChild(div);
+            });
+        }
+
+        function saveComment(event)
+        {
+            event.preventDefault();
+
+            const input = document.getElementById("commentInput");
+            const value = input.value.trim();
+            if(!value) return;
+
+            const comments = JSON.parse(localStorage.getItem("comments_secure")) || [];
+            comments.push(value);
+            localStorage.setItem("comments_secure", JSON.stringify(comments));
+
+            input.value = "";
+            loadComments();
+        }
+
+        loadComments();
+    </script>
+</body>
+</html>
